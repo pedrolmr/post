@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Login from './Login'
 
 const Auth = App => 
-    class extends Component{
+    class extends React.Component{
         state = {
             username: '',
             loggedIn: false,
         }
 
         componentDidMount(){
-            if(!localStorage.getItem('user')){
+            if(localStorage.getItem('user')){
                 this.setState({ loggedIn: true })
             }else{
                 this.setState({ loggedIn: false })
@@ -26,7 +26,6 @@ const Auth = App =>
             window.location.reload();
         }
         logoutHandler = () => {
-           const user = this.state.username;
            localStorage.removeItem('user')
            window.location.reload();
         }
