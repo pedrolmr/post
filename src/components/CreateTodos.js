@@ -18,24 +18,28 @@ class CreateTodos extends Component {
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <label htmlFor="title">Title:</label>
-                <input 
-                    type="text"
-                    name="title"
-                    value={this.state.title}
-                    onChange={this.changeHandler}
-                />
+            <div className="todo-form">
+                <form onSubmit={this.handleSubmit}>
+                    <label htmlFor="title">Title:</label>
+                    <input
+                        placeholder="Title"
+                        type="text"
+                        name="title"
+                        value={this.state.title}
+                        onChange={this.changeHandler}
+                    />
 
-                <label htmlFor="description">Description:</label>
-                <textarea
-                    type="text"
-                    name="description"
-                    value={this.state.description}
-                    onChange={this.changeHandler}
-                ></textarea>
-                <button>Add</button>
-            </form>
+                    <label htmlFor="description">Description:</label>
+                    <textarea
+                        placeholder="Add a description..."
+                        type="text"
+                        name="description"
+                        value={this.state.description}
+                        onChange={this.changeHandler}
+                    ></textarea>
+                    <button>Add</button>
+                </form>
+            </div>
         )
     }
 }
