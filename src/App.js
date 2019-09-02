@@ -13,6 +13,12 @@ class App extends Component {
       {id: uuid(), title: 'first post', description: 'idkidkidkidk'}
     ]
   }
+
+  addTodo = (title, description) => {
+    const newTodo = {id: uuid(), title:title, description: description}
+    this.setState({todos: [...this.state.todos, newTodo]})
+  }
+
   render(){
     return (
       <div className="App">
@@ -23,7 +29,7 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" render={props => <Todos todos={this.state.todos} {...props} />}/>
-          <Route exact path="/create" render={props => <CreateTodos handleSubmit={this.handleSubmit} {...props} />} />
+          <Route exact path="/create" render={props => <CreateTodos addTodo={this.addTodo} {...props} />} />
         </Switch>
       </div>
     );
