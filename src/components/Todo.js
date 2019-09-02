@@ -1,6 +1,11 @@
 import React from 'react'
 
-const Todo = () => {
-    return <h1>Todo</h1>
+const Todo = ({title, description}) => {
+    return (
+        <div className="todo">
+            <h1>{title}</h1>
+            <p>{description}</p>
+        </div>
+    )
 }
 export default Todo;
