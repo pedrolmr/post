@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { Link } from "react-router-dom";
 
-const Todo = ({title, description}) => {
+const Todo = props => {
     return (
         <div className="todo">
-            <h1>{title}</h1>
-            <p>{description}</p>
+            <Link to={`/${props.todo.id}`}><h1>{props.todo.title}</h1></Link>
         </div>
     )
 }

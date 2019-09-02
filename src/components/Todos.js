@@ -5,7 +5,7 @@ const Todos = ({ todos }) => {
     return(
         <div className="todos">
             {todos.map(t => {
-                return <Todo title={t.title} description={t.description}/>
+                return <Todo todo={t}/>
             })}
         </div>
     )

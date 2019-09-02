@@ -6,6 +6,7 @@ import uuid from 'uuid';
 
 import Todos from './components/Todos';
 import CreateTodos from './components/CreateTodos';
+import TodoPage from './components/TodoPage';
 
 class App extends Component {
   state = {
@@ -20,6 +21,11 @@ class App extends Component {
   }
 
   render(){
+    const getTodo = props => {
+      let id = props.match.params.id;
+      let currentTodo = this.state.todos.find(todo => todo.id === id)
+      return <TodoPage {...props} todo={currentTodo}/>
+    }
     return (
       <div className="App">
         <div className="Nav">
@@ -30,6 +36,8 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={props => <Todos todos={this.state.todos} {...props} />}/>
           <Route exact path="/create" render={props => <CreateTodos addTodo={this.addTodo} {...props} />} />
+
+          <Route exact path="/:id" render={getTodo}/>
         </Switch>
       </div>
     );
