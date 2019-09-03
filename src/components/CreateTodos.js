@@ -12,7 +12,7 @@ class CreateTodos extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.addTodo(this.state.title, this.state.description)
+        this.props.add(this.state.title, this.state.description)
         this.props.history.push("/");
     }
 

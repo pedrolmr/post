@@ -10,21 +10,24 @@ import TodoPage from './components/TodoPage';
 
 class App extends Component {
   state = {
-    todos: [
-      {id: uuid(), title: 'first post', description: 'idkidkidkidk'}
-    ]
+    todos: []
   }
 
-  addTodo = (title, description) => {
+  add = (title, description) => {
     const newTodo = {id: uuid(), title:title, description: description}
     this.setState({todos: [...this.state.todos, newTodo]})
+  }
+
+  delete = id => {
+    const todo = this.state.todos.filter(todo => todo.id !== id);
+    this.setState({ todos: todo });
   }
 
   render(){
     const getTodo = props => {
       let id = props.match.params.id;
       let currentTodo = this.state.todos.find(todo => todo.id === id)
-      return <TodoPage {...props} todo={currentTodo}/>
+      return <TodoPage {...props} todo={currentTodo} delete={this.delete}/>
     }
     return (
       <div className="App">
@@ -34,8 +37,17 @@ class App extends Component {
         </div>
 
         <Switch>
-          <Route exact path="/" render={props => <Todos todos={this.state.todos} {...props} />}/>
-          <Route exact path="/create" render={props => <CreateTodos addTodo={this.addTodo} {...props} />} />
+          <Route 
+          exact 
+          path="/" 
+          render={props => <Todos todos={this.state.todos}
+          {...props} />} />
+
+          <Route 
+          exact 
+          path="/create" 
+          render={props => <CreateTodos add={this.add} 
+          {...props} />} />
 
           <Route exact path="/:id" render={getTodo}/>
         </Switch>
