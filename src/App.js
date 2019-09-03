@@ -23,11 +23,21 @@ class App extends Component {
     this.setState({ todos: todo });
   }
 
+  update = (id, updatedTodo) => {
+    const updatedTodos = this.state.todos.map(todo => {
+      if (todo.id === id) {
+        return { ...todo, todo: updatedTodo };
+      }
+      return todo;
+    })
+    this.setState({ todos: updatedTodos });
+  }
+
   render(){
     const getTodo = props => {
       let id = props.match.params.id;
       let currentTodo = this.state.todos.find(todo => todo.id === id)
-      return <TodoPage {...props} todo={currentTodo} delete={this.delete}/>
+      return <TodoPage {...props} todo={currentTodo} delete={this.delete} update={this.update}/>
     }
     return (
       <div className="App">

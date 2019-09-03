@@ -1,25 +1,67 @@
-import React from "react";
+import React, { Component } from "react";
 
-const TodoPage = props => {
+class TodoPage extends Component {
+    state = {
+        todo: this.props.todo,
+        isEditing: false
+    }
+    changeHandler = e => {
+        this.setState({[e.target.name]: e.target.value})
+    }
 
-    const deleteTodo = e => {
+    deleteTodo = e => {
         e.preventDefault();
-        props.delete(props.todo.id);
-        props.history.push("/");
+        this.props.delete(this.props.todo.id);
+        this.props.history.push("/");
     }
 
-    console.log("Props in TodoPage", props)
-    if(!props.todo) {
-       return <h1>Loading...</h1>
-    }else{
-        return (
-            <div className="todo-page">
-                <h1>{props.todo.title}</h1>
-                <p>{props.todo.description}</p>
-                <button>Edit</button>
-                <button onClick={deleteTodo}>Delete</button>
-            </div>
-        );
+    updateTodo = e => {
+        e.preventDefault();
+        this.props.update(this.props.todo.id, this.state.todo);
+        this.props.history.push("/")
     }
+
+    toggleForm = () => {
+        this.setState({ isEditing: !this.state.isEditing})
+    }
+
+    render(){
+        let result;
+        if(this.state.isEditing){
+            result = (
+                <form onSubmit={this.updateTodo}>
+                    <label htmlFor="title">Title:</label>
+                    <input
+                        placeholder="Title"
+                        type="text"
+                        name="title"
+                        value={this.state.todo.title}
+                        onChange={this.changeHandler}
+                    />
+
+                    <label htmlFor="description">Description:</label>
+                    <textarea
+                        placeholder="Add a description..."
+                        type="text"
+                        name="description"
+                        value={this.state.todo.description}
+                        onChange={this.changeHandler}
+                    ></textarea>
+                    <button>Add</button>
+                </form>
+            )
+        }else{
+            return (
+                <div className="todo-page">
+                    <h1>{this.props.todo.title}</h1>
+                    <p>{this.props.todo.description}</p>
+                    <button onClick={this.toggleForm}>Edit</button>
+                    <button onClick={this.deleteTodo}>Delete</button>
+                </div>
+            );
+        }
+        return result;
+    }
+
 };
 export default TodoPage;
