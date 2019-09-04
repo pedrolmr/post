@@ -3,10 +3,12 @@ import React, { Component } from "react";
 class TodoPage extends Component {
     state = {
         todo: this.props.todo,
+        title: this.props.todo.title,
+        description: this.props.todo.description,
         isEditing: false
     }
     changeHandler = e => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: e.target.value});
     }
 
     deleteTodo = e => {
@@ -17,7 +19,11 @@ class TodoPage extends Component {
 
     updateTodo = e => {
         e.preventDefault();
+        let updatedTodo = this.state.todo;
+        updatedTodo.title = this.state.title;
+        updatedTodo.description = this.state.description;
         this.props.update(this.props.todo.id, this.state.todo);
+        this.setState({isEditing: false })
         this.props.history.push("/")
     }
 
@@ -26,6 +32,9 @@ class TodoPage extends Component {
     }
 
     render(){
+        console.log("title:", this.state.title);
+        console.log("description:", this.state.description);
+        console.log("Props in TodoPage", this.props)
         let result;
         if(this.state.isEditing){
             result = (
@@ -35,7 +44,7 @@ class TodoPage extends Component {
                         placeholder="Title"
                         type="text"
                         name="title"
-                        value={this.state.todo.title}
+                        value={this.state.title}
                         onChange={this.changeHandler}
                     />
 
@@ -44,10 +53,10 @@ class TodoPage extends Component {
                         placeholder="Add a description..."
                         type="text"
                         name="description"
-                        value={this.state.todo.description}
+                        value={this.state.description}
                         onChange={this.changeHandler}
                     ></textarea>
-                    <button>Add</button>
+                    <button>Update</button>
                 </form>
             )
         }else{

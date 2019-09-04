@@ -10,7 +10,9 @@ import TodoPage from './components/TodoPage';
 
 class App extends Component {
   state = {
-    todos: []
+    todos: [
+      {id: uuid(), title:'first todo', description:'description here'}
+    ]
   }
 
   add = (title, description) => {
