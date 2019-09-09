@@ -11,9 +11,6 @@ import EditTodoPage from './components/EditTodoPage';
 
 class App extends Component {
   state = {
-    // todos: [
-    //   {id: uuid(), title:'first todo', description:'description here'}
-    // ]
     todos: []
   }
 
@@ -72,7 +69,6 @@ class App extends Component {
 
           <Route exact path="/:id" render={getTodo}/>
           <Route exact path="/:id/edit" render={getTodoEditPage}/>
-          <Route render={() => <h1>404 page not found.</h1>}/>
         </Switch>
       </div>
     );
