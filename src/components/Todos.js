@@ -5,7 +5,7 @@ const Todos = ({ todos }) => {
     return(
         <div className="todos">
             {todos.map(t => {
-                return <Todo todo={t}/>
+                return <Todo todo={t}/>;
             })}
         </div>
     )
