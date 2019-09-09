@@ -7,6 +7,7 @@ import uuid from 'uuid';
 import Todos from './components/Todos';
 import CreateTodos from './components/CreateTodos';
 import TodoPage from './components/TodoPage';
+import EditTodoPage from './components/EditTodoPage';
 
 class App extends Component {
   state = {
@@ -39,8 +40,15 @@ class App extends Component {
     const getTodo = props => {
       let id = props.match.params.id;
       let currentTodo = this.state.todos.find(todo => todo.id === id)
-      return <TodoPage {...props} todo={currentTodo} delete={this.delete} update={this.update}/>
+      return <TodoPage {...props} todo={currentTodo} delete={this.delete}/>
     }
+
+    const getTodoEditPage = props => {
+      let id = props.match.params.id;
+      let currentTodo = this.state.todos.find(todo => todo.id === id)
+      return <EditTodoPage {...props} todo={currentTodo} update={this.update}/>
+    }
+
     return (
       <div className="App">
         <div className="Nav">
@@ -62,6 +70,7 @@ class App extends Component {
           {...props} />} />
 
           <Route exact path="/:id" render={getTodo}/>
+          <Route exact path="/:id/edit" render={getTodoEditPage}/>
         </Switch>
       </div>
     );
