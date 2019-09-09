@@ -1,13 +1,16 @@
 import React from 'react'
 import Todo from './Todo';
 
-const Todos = ({ todos }) => {
+const Todos = props => {
     return(
+        <>
+        <input placeholder="search" type="text" onKeyDown={props.searchHandler} />
         <div className="todos">
-            {todos.map(t => {
+            {props.todos.map(t => {
                 return <Todo todo={t}/>;
             })}
         </div>
+        </>
     )
 }
 export default Todos;

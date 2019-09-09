@@ -11,9 +11,10 @@ import EditTodoPage from './components/EditTodoPage';
 
 class App extends Component {
   state = {
-    todos: []
+    todos: [],
+    filtered: []
   }
-
+  
   add = (title, description) => {
     const newTodo = {id: uuid(), title:title, description: description}
     this.setState({todos: [...this.state.todos, newTodo]})
@@ -32,6 +33,15 @@ class App extends Component {
       return todo;
     })
     this.setState({ todos: updatedTodos });
+  }
+
+  search = e => {
+    const todos = this.state.todos.filter(t => {
+      if(t.title.includes(e.target.value)){
+        return t;
+      }
+    });
+    this.setState({ filtered: todos});
   }
 
   render(){
@@ -58,7 +68,7 @@ class App extends Component {
           <Route 
           exact 
           path="/" 
-          render={props => <Todos todos={this.state.todos}
+          render={props => <Todos todos={this.state.filtered.length > 0 ? this.state.filtered : this.state.todos} searchHandler={this.search}
           {...props} />} />
 
           <Route 
