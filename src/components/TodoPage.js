@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import DeleteModal from './DeleteModal';
 
+import styled from 'styled-components';
+
 class TodoPage extends Component {
     state = {
         todo: this.props.todo,
@@ -25,16 +27,45 @@ class TodoPage extends Component {
 
     render() {
         return (
-            <div className="todo-page">
-                <h1>{this.props.todo.title}</h1>
-                <p>{this.props.todo.description}</p>
-                <button onClick={this.todoEditPage}>Edit</button>
-                <button onClick={this.deleteToggleModal}>Delete</button>
+            <TodoPageWrapper>
+                <ContentArea>
+                    <h1>{this.props.todo.title}</h1>
+                    <p>{this.props.todo.description}</p>
+                    <Buttons>
+                        <Button onClick={this.todoEditPage}>Edit</Button>
+                        <Button red onClick={this.deleteToggleModal}>Delete</Button>
+                    </Buttons>
+                </ContentArea>
+
                 {this.state.delete && <DeleteModal deleteTodo={this.deleteTodo} deleteToggleModal={this.deleteToggleModal}/>}
-            </div>
+            </TodoPageWrapper>
         );
     }
-
-
 };
+const TodoPageWrapper = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+`;
+const ContentArea = styled.div`
+    width:50%;
+    p{
+        flex-wrap:wrap;
+    }
+`;
+const Buttons = styled.div`
+    display:flex;
+    align-items:center;
+    justify-content:center;
+`;
+const Button = styled.div`
+    width: 120px;
+    font-size: 20px;
+    background-color: ${ props => props.red ? '#BC4C4C' : '#526CC6' };
+    text-transform: uppercase;
+    color: #fff;
+    align-self: center;
+    margin:10px;
+    padding: 15px;
+`;
 export default TodoPage;

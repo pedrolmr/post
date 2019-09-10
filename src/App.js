@@ -8,10 +8,11 @@ import Todos from './components/Todos';
 import CreateTodos from './components/CreateTodos';
 import TodoPage from './components/TodoPage';
 import EditTodoPage from './components/EditTodoPage';
+import Navigation from './components/Navigation';
 
 class App extends Component {
   state = {
-    todos: [],
+    todos: [{ id: uuid(), title: 'first todo', description: 'this is the description.'}],
     filtered: []
   }
   
@@ -59,11 +60,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="Nav">
-          <NavLink exact activeClassName="active-link" to="/">Home</NavLink>
-          <NavLink exact activeClassName="active-link" to="/create">Create</NavLink>
-        </div>
-
+        <Navigation />
         <Switch>
           <Route 
           exact 
