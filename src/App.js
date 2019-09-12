@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { NavLink, Route, Switch } from 'react-router-dom'; 
+import { Route, Switch } from 'react-router-dom'; 
 import uuid from 'uuid';
 
 import Todos from './components/Todos';
@@ -12,13 +12,15 @@ import Navigation from './components/Navigation';
 
 class App extends Component {
   state = {
-    todos: [{ id: uuid(), title: 'first todo', description: 'this is the description.'}],
+    // todos: JSON.parse(localStorage.getItem('posts')) || [],
+    todos: [{id: uuid(), title:'first post', description: 'lorem ipsum'}],
     filtered: []
   }
-  
+
   add = (title, description) => {
-    const newTodo = {id: uuid(), title:title, description: description}
+    const newTodo = {id: uuid(), title: title, description: description}
     this.setState({todos: [...this.state.todos, newTodo]})
+    // localStorage.setItem('posts', JSON.stringify(newTodo));
   }
 
   delete = id => {
@@ -60,9 +62,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navigation />
+        <Navigation todoProps={this.state.todos}/>
         <Switch>
-          <Route 
+          <Route
           exact 
           path="/" 
           render={props => <Todos todos={this.state.filtered.length > 0 ? this.state.filtered : this.state.todos} searchHandler={this.search}

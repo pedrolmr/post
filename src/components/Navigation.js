@@ -1,12 +1,21 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import styled from 'styled-components';
 
-const Navigation = () => {
+const Navigation = props => {
+  console.log("props in navigation", props);
     return (
         <Nav>
-            <NavLink exact activeClassName="active-link" to="/">Home</NavLink>
-            <NavLink exact activeClassName="active-link" to="/create">Create</NavLink>
+        {props.history.location.pathname !== `${props.todoProps.map(i => i.id)}` ?
+            <React.Fragment>
+              <NavLink exact activeClassName="active-link" to="/">Home</NavLink>
+              <NavLink exact activeClassName="active-link" to="/create">Create</NavLink>
+            </React.Fragment>
+            
+        : <React.Fragment>
+            <NavLink exact activeClassName="active-link" to="/">Go Back</NavLink>
+          </React.Fragment>
+        }
         </Nav>
     )
 }
@@ -27,4 +36,4 @@ const Nav = styled.div`
   }
 `
 
-export default Navigation;
+export default withRouter(Navigation);

@@ -8,12 +8,12 @@ class CreateTodos extends Component {
     }
 
     changeHandler = e => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: e.target.value});
     }
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.add(this.state.title, this.state.description)
+        this.props.add(this.state.title, this.state.description);
         this.props.history.push("/");
     }
 
